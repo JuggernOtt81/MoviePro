@@ -66,36 +66,54 @@ namespace MoviePro.Controllers
             return RedirectToAction("Import");
         }
 
+        //Library
         public async Task<IActionResult> Library()
         {
             var movies = await _context.Movie.ToListAsync();
             return View(movies);
         }
+
         // GET: Temp/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(int? id, bool local = false)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var movie = await _context.Movie
-                .FirstOrDefaultAsync(m => m.Id == id);
+            Movie movie = new();
+            if (local)
+            {
+                //Get the Movie data straight from the DB
+                movie = await _context.Movie.Include(m => m.Cast)
+                    .Include(m => m.Crew)
+                    .FirstOrDefaultAsync(m => m.Id == id);
+            }
+            else
+            {
+                //Get the movie data from the TMDB API
+                var movieDetail = await _tmdbMovieService.MovieDetailAsync((int)id);
+                movie = await _tmdbMappingService.MapMovieDetailAsync(movieDetail);
+            }
+
             if (movie == null)
             {
                 return NotFound();
             }
 
+            ViewData["Local"] = local;
             return View(movie);
         }
 
-
+        //GET Create
         public IActionResult Create()
         {
             ViewData["CollectionId"] = new SelectList(_context.Collection, "Id", "Name");
             return View();
         }
 
+        //POST Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,TagLine,Overview,ReleaseDate,Rating,TrailerUrl,PosterFile,BackdropFile")] Movie movie, int collectionId)
