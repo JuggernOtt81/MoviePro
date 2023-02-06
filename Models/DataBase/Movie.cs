@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Http;
 using MoviePro.Enums;
 
-namespace MoviePro.Models
+namespace MoviePro.Models.DataBase
 {
     public class Movie
     {
