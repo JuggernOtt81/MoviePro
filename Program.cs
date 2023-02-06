@@ -13,7 +13,10 @@ namespace MoviePro
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder(args).ConfigureAppConfiguration((hostingContext, config) => {
+                    config.AddUserSecrets<Startup>();
+                })
+                .Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
