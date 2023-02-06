@@ -6,21 +6,30 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using MoviePro.Services;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace MoviePro
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).ConfigureAppConfiguration((hostingContext, config) => {
-                    config.AddUserSecrets<Startup>();
-                })
-                .Build().Run();
+            var host = CreateHostBuilder(args).Build();
+            var dataService = host.Services.CreateScope().ServiceProvider.GetService<SeedService>();
+
+            await dataService.ManageDataAsync();
+            
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((hostContext, config) =>
+                {
+                    config.AddUserSecrets<Program>();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
