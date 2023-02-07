@@ -244,8 +244,8 @@ namespace MoviePro.Data.Migrations
                     b.Property<string>("BackdropType")
                         .HasColumnType("text");
 
-                    b.Property<string>("MovieId")
-                        .HasColumnType("text");
+                    b.Property<int>("MovieId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Overview")
                         .HasColumnType("text");

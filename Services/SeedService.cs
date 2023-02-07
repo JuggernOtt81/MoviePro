@@ -19,16 +19,18 @@ namespace MoviePro.Services
         private readonly ApplicationDbContext _dbContext;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IConfiguration _configuration;
 
         public SeedService(IOptions<AppSettings> appSettings,
             ApplicationDbContext dbContext,
             UserManager<IdentityUser> userManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             _appSettings = appSettings.Value;
             _dbContext = dbContext;
             _userManager = userManager;
             _roleManager = roleManager;
+            _configuration = configuration;
         }
 
         public async Task ManageDataAsync()

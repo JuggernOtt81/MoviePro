@@ -67,7 +67,9 @@ namespace MoviePro.Controllers
                 });
                 await _context.SaveChangesAsync();
             }
-            return RedirectToAction(nameof(Index(), new {id}))
+
+            return RedirectToAction(nameof(Index), new { id });
+            
         }
     }
 }

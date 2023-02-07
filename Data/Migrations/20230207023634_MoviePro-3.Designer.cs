@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MoviePro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230206193408_MoviePro-2")]
-    partial class MoviePro2
+    [Migration("20230207023634_MoviePro-3")]
+    partial class MoviePro3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -246,8 +246,8 @@ namespace MoviePro.Data.Migrations
                     b.Property<string>("BackdropType")
                         .HasColumnType("text");
 
-                    b.Property<string>("MovieId")
-                        .HasColumnType("text");
+                    b.Property<int>("MovieId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Overview")
                         .HasColumnType("text");
