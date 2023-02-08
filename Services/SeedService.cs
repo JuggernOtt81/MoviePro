@@ -35,7 +35,6 @@ namespace MoviePro.Services
 
         public async Task ManageDataAsync()
         {
-            await _dbContext.Database.MigrateAsync();
             await SeedRolesAsync();
             await SeedUsersAsync();
             await SeedCollections();
@@ -44,7 +43,6 @@ namespace MoviePro.Services
         private async Task SeedRolesAsync()
         {
             if (_dbContext.Roles.Any()) return;
-
             var adminRole = _appSettings.MovieProSettings.DefaultCredentials.Role;
             await _roleManager.CreateAsync(new IdentityRole(adminRole));
         }

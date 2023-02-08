@@ -13,7 +13,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration.UserSecrets;
+using MoviePro.Models.Settings;
 using MoviePro.Services;
+using MoviePro.Services.Interfaces;
 
 
 namespace MoviePro
@@ -30,23 +32,30 @@ namespace MoviePro
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient();
+            services.AddSingleton<IConfiguration>(
+                x => new ConfigurationBuilder()
+                    .AddUserSecrets<Startup>()
+                    .Build());
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
                     ConnectionService.GetConnectionString(Configuration)));
-
             services.AddDatabaseDeveloperPageExceptionFilter();
-
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddEntityFrameworkStores<ApplicationDbContext>(); 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddTransient<SeedService>();
+            services.AddTransient<IRemoteMovieService, TMDBMovieService>();
+            services.AddScoped<IImageService, BasicImageService>();
+            services.AddRazorPages();
             services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //var configuration = BuildServiceProvider().GetService<IConfiguration>();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
