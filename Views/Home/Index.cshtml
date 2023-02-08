@@ -6,202 +6,39 @@
 
 @{
     ViewData["Title"] = "Movie-Pro";
-    var rgx = new Regex("[^a-zA-Z0-9]");
+    //var rgx = new Regex("[^a-zA-Z0-9]");
 }
 
-@if (Model.CustomCollections.SelectMany(c => c.MovieCollections).Count() > 0)
-{
-    <div class="movie-items full-width">
-        <div class="row">
-            <div class="col-md-12">
+<style>
+    .clampOverview {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }    
+    .clampTitle{
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    h5.card-title{
+        height: 2.5em;
+    }
+</style>
 
-                <div class="title-hd">
-                    <h2>Custom Collections</h2>
-                    <a class="text-white" asp-controller="Movies" asp-action="Library">Library <i class="ion-ios-arrow-right"></i></a>
-                </div>
-
-
-                <div class="tabs">
-                    <ul class="tab-links">
-                        @{
-                            var txtClass = "active";
-                            foreach (var collection in Model.CustomCollections)
-                            {
-                                if (collection.MovieCollections.Count > 0)
-                                {
-                                    <li class="@txtClass">
-                                        <a href="#@rgx.Replace(collection.Name, "")">#@collection.Name</a>
-                                        @*<a href="#@collection.Name.Replace(" ", "")">#@collection.Name</a>*@
-                                    </li>
-                                    txtClass = "";
-                                }
-                            }
-                        }
-                    </ul>
-                    <div class="tab-content">
-                        @{
-                            txtClass = "active";
-                            foreach (var collection in Model.CustomCollections)
-                            {
-                                if (collection.MovieCollections.Count > 0)
-                                {
-                                    <div id="@rgx.Replace(collection.Name, "")" class="tab @txtClass">
-                                        <div class="row">
-                                            <div class="slick-multiItem2">
-                                                @foreach (var movieCollection in collection.MovieCollections)
-                                                {
-                                                    <div class="slide-it">
-                                                        <div class="movie-item">
-                                                            <div>
-                                                                <img src="@_imageService.DecodeImage(@movieCollection.Movie.Poster, @movieCollection.Movie.PosterType)" class="img-fluid fixed-height" alt="">
-                                                            </div>
-                                                            <div class="hvr-inner">
-                                                                <a asp-action="Details" asp-controller="Movies" asp-route-id="@movieCollection.Movie.Id" asp-route-local="true"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                                            </div>
-
-                                                            <div class="title-in">
-                                                                <h6><a href="#">@movieCollection.Movie.Title</a></h6>
-                                                                <p><i class="ion-android-star"></i><span>@movieCollection.Movie.VoteAverage </span> /10</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                    txtClass = "";
-                                }
-                            }
-                        }
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-}
-
-<div class="movie-items full-width">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="title-hd">
-                <h2>TMDB Movies</h2>
-            </div>
-            <div class="tabs">
-                <ul class="tab-links">
-                    <li class="active"><a href="#NowPlaying">#Now Playing</a></li>
-                    <li><a href="#Popular">#Popular</a></li>
-                    <li><a href="#TopRated">#Top Rated  </a></li>
-                    <li><a href="#UpComing">#Upcoming</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div id="NowPlaying" class="tab active">
-                        <div class="row">
-                            <div class="slick-multiItem2">
-                                @foreach (var movie in Model.NowPlaying.results)
-                                {
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div>
-                                                <img src="@movie.poster_path" class="img-fluid" alt="">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.id"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-
-                                            <div class="title-in">
-                                                <h6><a href="#">@movie.title</a></h6>
-                                                <p><i class="ion-android-star"></i><span>@movie.vote_average</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                    <div id="Popular" class="tab">
-                        <div class="row">
-                            <div class="slick-multiItem2">
-                                @foreach (var movie in Model.Popular.results)
-                                {
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="@movie.poster_path" alt="">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.id"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">@movie.title</a></h6>
-                                                <p><i class="ion-android-star"></i><span>@movie.vote_average</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                    <div id="TopRated" class="tab">
-                        <div class="row">
-                            <div class="slick-multiItem2">
-                                @foreach (var movie in Model.TopRated.results)
-                                {
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="@movie.poster_path" alt="">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.id"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">@movie.title</a></h6>
-                                                <p><i class="ion-android-star"></i><span>@movie.vote_average</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                    <div id="UpComing" class="tab">
-                        <div class="row">
-                            <div class="slick-multiItem2">
-                                @foreach (var movie in Model.Upcoming.results)
-                                {
-                                    <div class="slide-it">
-                                        <div class="movie-item">
-                                            <div class="mv-img">
-                                                <img src="@movie.poster_path" alt="">
-                                            </div>
-                                            <div class="hvr-inner">
-                                                <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.id"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-                                            </div>
-                                            <div class="title-in">
-                                                <h6><a href="#">@movie.title</a></h6>
-                                                <p><i class="ion-android-star"></i><span>@movie.vote_average</span> /10</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
+<div class="row">
+    @foreach (var movie in Model.Upcoming.results)
+    {
+        <div class="col-sm-3 mb-2">
+            <div class="card" style="width: 18rem;">
+                <img src="@movie.poster_path" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title clampTitle">@movie.title</h5>
+                    <p class="card-text clampOverview">@movie.overview</p>
+                    <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.id" class="btn btn-lg btn-block btn-dark">Details</a>
                 </div>
             </div>
         </div>
-    </div>
+    }
 </div>
-
-@section Scripts {
-
-    <script>
-        var errorMessage = '@TempData["ErrorMessage"]';
-        if (errorMessage) {
-            swalWithDarkButton.fire({
-                html: `<h5 class='pt-3 pb-5 font-weight-bolder'>${errorMessage}</h5>`
-            });
-        }
-    </script>
-}
