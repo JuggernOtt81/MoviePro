@@ -116,10 +116,10 @@ namespace MoviePro.Models.TMDB
     public class ReleaseResult
     {
         public string iso_3166_1 { get; set; }
-        public Release_Dates1[] release_date { get; set; }
+        public Release_Date[] release_dates { get; set; }
     }
 
-    public class Release_Dates1
+    public class Release_Date
     {
         public string certification { get; set; }
         public object[] descriptors { get; set; }

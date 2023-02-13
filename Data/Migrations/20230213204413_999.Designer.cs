@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MoviePro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230207023634_MoviePro-3")]
-    partial class MoviePro3
+    [Migration("20230213204413_999")]
+    partial class _999
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

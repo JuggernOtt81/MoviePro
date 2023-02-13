@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MoviePro.Data.Migrations
 {
-    public partial class MoviePro3 : Migration
+    public partial class _999 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

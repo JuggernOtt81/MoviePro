@@ -129,7 +129,7 @@ namespace MoviePro.Services
             var certification = dates.results.FirstOrDefault(r => r.iso_3166_1 == "US");
             if (certification is not null)
             {
-                var apiRating = certification.release_date.FirstOrDefault(c => c.certification != "")?.certification.Replace("-", "");
+                var apiRating = certification.release_dates.FirstOrDefault(c => c.certification != "")?.certification.Replace("-", "");
                 if (!string.IsNullOrEmpty(apiRating))
                 {
                     movieRating = (MovieRating)Enum.Parse(typeof(MovieRating), apiRating, true);
