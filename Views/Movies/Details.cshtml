@@ -56,6 +56,31 @@
 </div>
 
 
+<div class="row">
+    <div class="col">
+        <span class="h5 font-weight-bolder">STARRING:</span>
+    </div>
+</div>
+@foreach(var actor in Model.Cast.Take(5))
+{
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-2">
+                        <img src="@actor.ImageUrl" class="img-fluid" style="width: 10rem" alt="...">
+                    </div>
+                    <div class="col-md-10">
+                        <div class="card-body">
+                            <h5 class="card-title">Name: @actor.Name</h5>
+                            <p class="card-text">Character: @actor.Character</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 
 

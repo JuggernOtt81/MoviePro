@@ -87,8 +87,8 @@ namespace MoviePro.Controllers
             {
                 //Get the Movie data straight from the DB
                 movie = await _context.Movie.Include(m => m.Cast)
-                    .Include(m => m.Crew)
-                    .FirstOrDefaultAsync(m => m.Id == id);
+                                            .Include(m => m.Crew)
+                                            .FirstOrDefaultAsync(m => m.Id == id);
             }
             else
             {
