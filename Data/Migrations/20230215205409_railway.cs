@@ -2,9 +2,11 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
+#nullable disable
+
 namespace MoviePro.Data.Migrations
 {
-    public partial class _999 : Migration
+    public partial class railway : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -72,7 +74,7 @@ namespace MoviePro.Data.Migrations
                     TagLine = table.Column<string>(type: "text", nullable: true),
                     Overview = table.Column<string>(type: "text", nullable: true),
                     RunTime = table.Column<int>(type: "integer", nullable: false),
-                    ReleaseDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ReleaseDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Rating = table.Column<int>(type: "integer", nullable: false),
                     VoteAverage = table.Column<float>(type: "real", nullable: false),
                     Poster = table.Column<byte[]>(type: "bytea", nullable: true),

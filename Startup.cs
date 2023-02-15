@@ -34,8 +34,11 @@ namespace MoviePro
         {
             services.AddHttpClient();
             services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(
-        Environment.GetEnvironmentVariable("CONNECTION_STRING")));
+                options.UseNpgsql(
+                    ConnectionService.GetConnectionString(Configuration)));
+            //        services.AddDbContext<ApplicationDbContext>(options =>
+            //options.UseNpgsql(
+            //    Environment.GetEnvironmentVariable("CONNECTION_STRING")));
             services.AddOptions<AppSettings>()
                     .BindConfiguration("AppSettings");
             services.Configure<MovieProSettings>(
