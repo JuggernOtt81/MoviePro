@@ -23,22 +23,5 @@ namespace MoviePro.Controllers
             actor = _tmdbMappingService.MapActorDetail(actor);
             return View(actor);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
