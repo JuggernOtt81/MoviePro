@@ -25,7 +25,7 @@ namespace MoviePro
         }
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
     WebHost.CreateDefaultBuilder(args)
-        .UseUrls("http://0.0.0.0:5000", "https://0.0.0.0:5001")
+        .UseUrls("http://0.0.0.0:3000", "https://0.0.0.0:3001")
         .UseStartup<Startup>();
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
