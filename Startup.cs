@@ -36,6 +36,10 @@ namespace MoviePro
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
                     ConnectionService.GetConnectionString(Configuration)));
+            services.AddSingleton<IConfiguration>(
+    x => new ConfigurationBuilder()
+        .AddUserSecrets<Startup>()
+        .Build());
             //        services.AddDbContext<ApplicationDbContext>(options =>
             //options.UseNpgsql(
             //    Environment.GetEnvironmentVariable("CONNECTION_STRING")));

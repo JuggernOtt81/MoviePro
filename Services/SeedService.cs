@@ -33,8 +33,15 @@ namespace MoviePro.Services
             _configuration = configuration;
         }
 
+
         public async Task ManageDataAsync()
         {
+            await _dbContext.Database.MigrateAsync();
+            var hasPendingMigrations = await _dbContext.Database.GetPendingMigrationsAsync();
+            if (hasPendingMigrations.Any())
+            {
+                await _dbContext.Database.MigrateAsync();
+            }
             await SeedRolesAsync();
             await SeedUsersAsync();
             await SeedCollections();

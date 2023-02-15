@@ -17,9 +17,8 @@ namespace MoviePro
         public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            var dataService = host.Services.CreateScope().ServiceProvider.GetService<SeedService>();
-
-            await dataService.ManageDataAsync();
+            var seedService = host.Services.CreateScope().ServiceProvider.GetService<SeedService>();
+            await seedService.ManageDataAsync();
             
             host.Run();
         }
