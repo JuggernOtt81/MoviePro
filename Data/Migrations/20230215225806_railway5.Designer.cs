@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MoviePro.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230215214852_railway2")]
-    partial class railway2
+    [Migration("20230215225806_railway5")]
+    partial class railway5
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
