@@ -32,6 +32,11 @@ namespace MoviePro
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var builder = new ConfigurationBuilder()
+                    .AddEnvironmentVariables();
+            var config = builder.Build();
+            var tmDbApiKey = config["AppSettings:MovieProSettings:TmDbApiKey"];
+
             services.AddHttpClient();
             services.AddSingleton<IConfiguration>(
                 x => new ConfigurationBuilder()
