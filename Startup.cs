@@ -35,23 +35,23 @@ namespace MoviePro
             var builder = new ConfigurationBuilder()
                     .AddEnvironmentVariables();
             var config = builder.Build();
-            var allowedHosts = config["AllowedHosts"];
-            var tmDbBaseUrl = config["AppSettings:TmDbSettings:BaseUrl"];
-            var tmDbBaseImagePath = config["AppSettings:TmDbSettings:BaseImagePath"];
-            var tmDbBaseYouTubePath = config["AppSettings:TmDbSettings:BaseYouTubePath"];
-            var tmDbLanguage = config["AppSettings:TmDbSettings:QueryOptions:Language"];
-            var tmDbAppendToResponse = config["AppSettings:TmDbSettings:QueryOptions:AppendToResponse"];
-            var tmDbPage = config["AppSettings:TmDbSettings:QueryOptions:Page"];
-            var tmDbApiKey = config["AppSettings:MovieProSettings:TmDbApiKey"];
-            var defaultBackdropSize = config["AppSettings:MovieProSettings:DefaultBackdropSize"];
-            var defaultPosterSize = config["AppSettings:MovieProSettings:DefaultPosterSize"];
-            var defaultYouTubeKey = config["AppSettings:MovieProSettings:DefaultYouTubeKey"];
-            var defaultCastImage = config["AppSettings:MovieProSettings:DefaultCastImage"];
-            var defaultCollectionName = config["AppSettings:MovieProSettings:DefaultCollection:Name"];
-            var defaultCollectionDescription = config["AppSettings:MovieProSettings:DefaultCollection:Description"];
-            var defaultCredentialsRole = config["AppSettings:MovieProSettings:DefaultCredentials:Role"];
-            var defaultCredentialsEmail = config["AppSettings:MovieProSettings:DefaultCredentials:Email"];
-            var defaultCredentialsPassword = config["AppSettings:MovieProSettings:DefaultCredentials:Password"];
+            var tmDbBaseUrl = Environment.GetEnvironmentVariable("AppSettings:TmDbSettings:BaseUrl");
+            var tmDbBaseImagePath = Environment.GetEnvironmentVariable("AppSettings:TmDbSettings:BaseImagePath");
+            var tmDbBaseYouTubePath = Environment.GetEnvironmentVariable("AppSettings:TmDbSettings:BaseYouTubePath");
+            var tmDbLanguage = Environment.GetEnvironmentVariable("AppSettings:TmDbSettings:QueryOptions:Language");
+            var tmDbAppendToResponse = Environment.GetEnvironmentVariable("AppSettings:TmDbSettings:QueryOptions:AppendToResponse");
+            var tmDbPage = Environment.GetEnvironmentVariable("AppSettings:TmDbSettings:QueryOptions:Page");
+            var tmDbApiKey = Environment.GetEnvironmentVariable("AppSettings:MovieProSettings:TmDbApiKey");
+            var defaultBackdropSize = Environment.GetEnvironmentVariable("AppSettings:MovieProSettings:DefaultBackdropSize");
+            var defaultPosterSize = Environment.GetEnvironmentVariable("AppSettings:MovieProSettings:DefaultPosterSize");
+            var defaultYouTubeKey = Environment.GetEnvironmentVariable("AppSettings:MovieProSettings:DefaultYouTubeKey");
+            var defaultCastImage = Environment.GetEnvironmentVariable("AppSettings:MovieProSettings:DefaultCastImage");
+            var defaultCollectionName = Environment.GetEnvironmentVariable("AppSettings:MovieProSettings:DefaultCollection:Name");
+            var defaultCollectionDescription = Environment.GetEnvironmentVariable("AppSettings:MovieProSettings:DefaultCollection:Description");
+            var defaultCredentialsRole = Environment.GetEnvironmentVariable("AppSettings:MovieProSettings:DefaultCredentials:Role");
+            var defaultCredentialsEmail = Environment.GetEnvironmentVariable("AppSettings:MovieProSettings:DefaultCredentials:Email");
+            var defaultCredentialsPassword = Environment.GetEnvironmentVariable("AppSettings:MovieProSettings:DefaultCredentials:Password");
+
 
             services.AddHttpClient();
             services.AddSingleton<IConfiguration>(
