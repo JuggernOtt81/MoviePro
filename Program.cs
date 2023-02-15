@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using MoviePro.Services;
 using Microsoft.Extensions.Configuration.UserSecrets;
+using Microsoft.AspNetCore;
 
 namespace MoviePro
 {
@@ -22,7 +23,10 @@ namespace MoviePro
             
             host.Run();
         }
-
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+    WebHost.CreateDefaultBuilder(args)
+        .UseUrls("http://0.0.0.0:5000", "https://0.0.0.0:5001")
+        .UseStartup<Startup>();
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
