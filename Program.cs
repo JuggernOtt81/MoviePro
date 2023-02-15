@@ -28,7 +28,7 @@ namespace MoviePro
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostContext, config) =>
                 {
-                    config.AddUserSecrets<Program>();
+                    config.AddEnvironmentVariables();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
