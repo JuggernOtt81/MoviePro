@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MoviePro.Data.Migrations
 {
-    public partial class railway : Migration
+    public partial class railway2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
