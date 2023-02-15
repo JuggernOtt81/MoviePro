@@ -33,13 +33,16 @@ namespace MoviePro
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient();
-            services.AddSingleton<IConfiguration>(
-                x => new ConfigurationBuilder()
-                    .AddUserSecrets<Startup>()
-                    .Build());
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(
-                    ConnectionService.GetConnectionString(Configuration)));
+    options.UseNpgsql(
+        Environment.GetEnvironmentVariable("CONNECTION_STRING")));
+            services.AddOptions<AppSettings>()
+                    .BindConfiguration("AppSettings");
+            services.Configure<MovieProSettings>(
+                Configuration.GetSection("AppSettings:MovieProSettings"));
+            services.Configure<TMDBSettings>(
+                Configuration.GetSection("AppSettings:TMDBSettings"));
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
