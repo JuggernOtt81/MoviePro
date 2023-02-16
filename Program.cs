@@ -20,7 +20,7 @@ namespace MoviePro
             var host = CreateHostBuilder(args).Build();
             var seedService = host.Services.CreateScope().ServiceProvider.GetService<SeedService>();
             await seedService.ManageDataAsync();
-            
+
             host.Run();
         }
 
@@ -29,6 +29,7 @@ namespace MoviePro
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls($"http://0.0.0.0:{Environment.GetEnvironmentVariable("PORT")}");
                 });
     }
 }
