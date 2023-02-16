@@ -30,6 +30,37 @@ namespace MoviePro
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        //    public void ConfigureServices(IServiceCollection services)
+        //    {
+        //        services.AddHttpClient();
+        //        services.AddDbContext<ApplicationDbContext>(options =>
+        //            options.UseNpgsql(
+        //                ConnectionService.GetConnectionString(Configuration)));
+        //        services.AddSingleton<IConfiguration>(
+        //x => new ConfigurationBuilder()
+        //    .AddUserSecrets<Startup>()
+        //    .Build());
+        ////        services.AddDbContext<ApplicationDbContext>(options =>
+        ////options.UseNpgsql(
+        ////    Environment.GetEnvironmentVariable("CONNECTION_STRING")));
+        //        services.AddOptions<AppSettings>()
+        //                .BindConfiguration("AppSettings");
+        //        services.Configure<MovieProSettings>(
+        //            Configuration.GetSection("AppSettings:MovieProSettings"));
+        //        services.Configure<TMDBSettings>(
+        //            Configuration.GetSection("AppSettings:TMDBSettings"));
+        //        services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+        //        services.AddDatabaseDeveloperPageExceptionFilter();
+        //        services.AddIdentity<IdentityUser, IdentityRole>()
+        //            .AddEntityFrameworkStores<ApplicationDbContext>();
+        //        services.AddTransient<SeedService>();
+        //        services.AddTransient<IDataMappingService, TMDBMappingService>();
+        //        services.AddTransient<IRemoteMovieService, TMDBMovieService>();
+        //        services.AddScoped<IImageService, BasicImageService>();
+        //        services.AddRazorPages();
+        //        services.AddControllersWithViews();
+        //    }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient();
@@ -37,12 +68,9 @@ namespace MoviePro
                 options.UseNpgsql(
                     ConnectionService.GetConnectionString(Configuration)));
             services.AddSingleton<IConfiguration>(
-    x => new ConfigurationBuilder()
-        .AddUserSecrets<Startup>()
-        .Build());
-            //        services.AddDbContext<ApplicationDbContext>(options =>
-            //options.UseNpgsql(
-            //    Environment.GetEnvironmentVariable("CONNECTION_STRING")));
+                x => new ConfigurationBuilder()
+                    .AddEnvironmentVariables()
+                    .Build());
             services.AddOptions<AppSettings>()
                     .BindConfiguration("AppSettings");
             services.Configure<MovieProSettings>(
@@ -53,7 +81,6 @@ namespace MoviePro
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddTransient<SeedService>();
             services.AddTransient<IDataMappingService, TMDBMappingService>();
             services.AddTransient<IRemoteMovieService, TMDBMovieService>();
@@ -61,6 +88,8 @@ namespace MoviePro
             services.AddRazorPages();
             services.AddControllersWithViews();
         }
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
